@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>modulo 6 leccion 5 ejercicio 2 Obtener fecha y hora</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      p {
+        font-size: 24px;
+        text-align: center;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Obtener fecha y hora</h1>
+    <button id="btn">Obtener fecha y hora</button>
+    <button id="btn-month">Obtener mes</button>
+    <button id="btn-year-abbr">Obtener fecha y hora con año abreviado</button>
+    <button id="btn-year-full">Obtener fecha y hora con año completo</button>
+    <p id="month"></p>
+    <p id="datetime"></p>
+    <p id="empresa"></p>
+
+    <script>
+      const btn = document.getElementById('btn');
+      const btnMonth = document.getElementById('btn-month');
+      const datetime = document.getElementById('datetime');
+      const empresa = document.getElementById('empresa');
+      const month = document.getElementById('month');
+
+      btn.addEventListener('click', () => {
+        fetch('http://localhost:3000/datetime')
+          .then(response => response.text())
+          .then(data => {
+            datetime.innerText = data;
+            empresa.innerText = `Este servicio llega a usted gracias a Almanab`;
+            month.innerText = '';
+          })
+          .catch(error => console.error(error));
+      });
+
+      btnMonth.addEventListener('click', () => {
+        fetch('http://localhost:3000/datetime?mes=nombre')
+          .then(response => response.text())
+          .then(data => {
+            month.innerText = data;
+            empresa.innerText = `Este servicio llega a usted gracias a Almanab`;
+            datetime.innerText = '';
+          })
+          .catch(error => console.error(error));
+      });
+      const btnYearAbbr = document.getElementById('btn-year-abbr');
+const btnYearFull = document.getElementById('btn-year-full');
+
+btnYearAbbr.addEventListener('click', () => {
+  fetch('http://localhost:3000/datetime?anio=abreviado')
+    .then(response => response.text())
+    .then(data => {
+      datetime.innerText = data;
+      empresa.innerText = `Este servicio llega a usted gracias a Almanab`;
+      month.innerText = '';
+    })
+    .catch(error => console.error(error));
+});
+
+btnYearFull.addEventListener('click', () => {
+  fetch('http://localhost:3000/datetime?anio=completo')
+    .then(response => response.text())
+    .then(data => {
+      datetime.innerText = data;
+      empresa.innerText = `Este servicio llega a usted gracias a Almanab`;
+      month.innerText = '';
+    })
+    .catch(error => console.error(error));
+});
+
+    </script>
+    <script src="/script.js"></script>
+  </body>
+</html>
